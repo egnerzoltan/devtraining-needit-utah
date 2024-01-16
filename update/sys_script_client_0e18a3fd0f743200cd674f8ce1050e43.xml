@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?><record_update sys_domain="global" table="sys_script_client">
     <sys_script_client action="INSERT_OR_UPDATE">
-        <active>false</active>
+        <active>true</active>
         <applies_extended>false</applies_extended>
         <condition/>
         <description/>
@@ -14,10 +14,35 @@
    if (isLoading || newValue === '') {
       return;
    }
-
+	run(control, newValue);
    //Type appropriate comment here, and begin script below
    alert("You have changed the Short description from " + oldValue + " to " + newValue + ".");
+	
+	
 }
+
+function run(control, newValue) {
+ 
+    // Creating Our XMLHttpRequest object 
+    var xhr = new XMLHttpRequest();
+ 
+    // Making our connection  
+    var url = 'https://localhost:7161/WeatherForecast';
+    xhr.open("POST", url, true);
+	xhr.setRequestHeader("Content-type", "application/json");
+	xhr.setRequestHeader("Accept", "application/json");
+	
+    // function execute after request is successful 
+    xhr.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            alert(this.responseText);
+        }
+    }
+    // Sending our request 
+    //xhr.send(JSON.stringify({email:'email', password: 'pass', user: {userName: g_user.userName, userID: g_user.userID, firstName: g_user.firstName, lastName: g_user.lastName} }));
+	xhr.send(JSON.stringify({email:'email', password: 'pass', user: g_user, form: g_form})); 
+}
+
 
 
 
@@ -28,7 +53,7 @@
         <sys_domain>global</sys_domain>
         <sys_domain_path>/</sys_domain_path>
         <sys_id>0e18a3fd0f743200cd674f8ce1050e43</sys_id>
-        <sys_mod_count>7</sys_mod_count>
+        <sys_mod_count>20</sys_mod_count>
         <sys_name>NeedIt onChange Example</sys_name>
         <sys_overrides/>
         <sys_package display_value="NeedIt" source="x_58872_needit">6ead8e780f603200cd674f8ce1050ed1</sys_package>
@@ -36,7 +61,7 @@
         <sys_scope display_value="NeedIt">6ead8e780f603200cd674f8ce1050ed1</sys_scope>
         <sys_update_name>sys_script_client_0e18a3fd0f743200cd674f8ce1050e43</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2017-02-09 21:17:16</sys_updated_on>
+        <sys_updated_on>2024-01-16 13:55:38</sys_updated_on>
         <table>x_58872_needit_needit</table>
         <type>onChange</type>
         <ui_type>0</ui_type>
