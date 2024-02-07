@@ -6,7 +6,7 @@
         <action_insert>true</action_insert>
         <action_query>false</action_query>
         <action_update>true</action_update>
-        <active>false</active>
+        <active>true</active>
         <add_message>false</add_message>
         <advanced>true</advanced>
         <change_fields>false</change_fields>
@@ -18,7 +18,7 @@
         <filter_condition/>
         <is_rest>false</is_rest>
         <message/>
-        <name>ServerSideAPICall_POST</name>
+        <name>ServerSideAPICall_POST_BasicAuth</name>
         <order>100</order>
         <priority>100</priority>
         <rest_method/>
@@ -47,7 +47,7 @@ try {
 	
 	try{
 		currentJsonString = new JSONG().convertGrToJSON(current);
-		currentUserString = new JSONG().convertGrToJSON(gs.getUser());
+		currentUserString = gs.getUser().getID();
 	}
 	catch(ex2){
 		gs.error("JSONG error1: " + ex2);
@@ -56,6 +56,7 @@ try {
 	
 	gs.info("current json: " +  currentJsonString);
     var restMessage = new sn_ws.RESTMessageV2();
+	restMessage.setBasicAuth("sluser", "slpassword");
     restMessage.setHttpMethod("POST");
     restMessage.setEndpoint("https://app-sl-snow-sample-api-dev-weu.azurewebsites.net/WeatherForecast");
     restMessage.setRequestHeader("Accept", "application/json");
@@ -116,21 +117,21 @@ gs.error("error on api call1")
 })(current, previous);]]></script>
         <sys_class_name>sys_script</sys_class_name>
         <sys_created_by>admin</sys_created_by>
-        <sys_created_on>2024-02-07 10:04:15</sys_created_on>
+        <sys_created_on>2024-02-07 13:14:37</sys_created_on>
         <sys_domain>global</sys_domain>
         <sys_domain_path>/</sys_domain_path>
-        <sys_id>9359805047d402101dadd24b116d4363</sys_id>
-        <sys_mod_count>28</sys_mod_count>
-        <sys_name>ServerSideAPICall_POST</sys_name>
+        <sys_id>ab05705c475802101dadd24b116d4379</sys_id>
+        <sys_mod_count>6</sys_mod_count>
+        <sys_name>ServerSideAPICall_POST_BasicAuth</sys_name>
         <sys_overrides/>
         <sys_package display_value="NeedIt" source="x_58872_needit">6ead8e780f603200cd674f8ce1050ed1</sys_package>
         <sys_policy/>
         <sys_scope display_value="NeedIt">6ead8e780f603200cd674f8ce1050ed1</sys_scope>
-        <sys_update_name>sys_script_9359805047d402101dadd24b116d4363</sys_update_name>
+        <sys_update_name>sys_script_ab05705c475802101dadd24b116d4379</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2024-02-07 13:14:39</sys_updated_on>
+        <sys_updated_on>2024-02-07 14:00:24</sys_updated_on>
         <template/>
         <when>async_always</when>
     </sys_script>
-    <sys_translated_text action="delete_multiple" query="documentkey=9359805047d402101dadd24b116d4363"/>
+    <sys_translated_text action="delete_multiple" query="documentkey=ab05705c475802101dadd24b116d4379"/>
 </record_update>
