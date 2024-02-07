@@ -6,8 +6,8 @@
         <action_insert>true</action_insert>
         <action_query>false</action_query>
         <action_update>true</action_update>
-        <active>false</active>
-        <add_message>true</add_message>
+        <active>true</active>
+        <add_message>false</add_message>
         <advanced>true</advanced>
         <change_fields>false</change_fields>
         <client_callable>false</client_callable>
@@ -17,8 +17,8 @@
         <execute_function>false</execute_function>
         <filter_condition/>
         <is_rest>false</is_rest>
-        <message><![CDATA[<p>script run</p>]]></message>
-        <name>ServerSideAPICall_GET</name>
+        <message/>
+        <name>ServerSideAPICall_POST</name>
         <order>100</order>
         <priority>100</priority>
         <rest_method/>
@@ -29,19 +29,38 @@
         <role_conditions/>
         <script><![CDATA[(function executeRule(current, previous /*null when async*/) {
 
-	gs.info("aa");
+
 	// Add your code here
 
 
 try {
 
-gs.info("start");
+
+	
+	gs.info("ServerSideAPICall_POST start1");
+	gs.info("current1: " + current);
+	
+	
+	
+	var currentJsonString = "";
+	var currentUserString = "";
+	
+	try{
+		currentJsonString = new JSONG().convertGrToJSON(current);
+		currentUserString = new JSONG().convertGrToJSON(gs.getUser());
+	}
+	catch(ex2){
+		gs.error("JSONG error1: " + ex2);
+	}
+
+	
+	gs.info("current json: " +  currentJsonString);
     var restMessage = new sn_ws.RESTMessageV2();
-    restMessage.setHttpMethod("GET");
-    restMessage.setEndpoint("https://app-sl-snow-sample-api-dev-weu.azurewebsites.net/WeatherForecast?a=b");
+    restMessage.setHttpMethod("POST");
+    restMessage.setEndpoint("https://app-sl-snow-sample-api-dev-weu.azurewebsites.net/WeatherForecast");
     restMessage.setRequestHeader("Accept", "application/json");
     restMessage.setRequestHeader("Content-Type", "application/json");
-   // restMessage.setRequestBody(JSON.stringify({email:'ServerSide_email', password: 'ServerSide_pass', user: null, data: current}));
+    restMessage.setRequestBody(JSON.stringify({email:'ServerSide_email', password: 'ServerSide_pass', user: null, currentuser: currentUserString, data: currentJsonString}));
     var response = restMessage.execute();
     if (response.getStatusCode() === 200) {
 gs.info("statuscod == 200")
@@ -62,11 +81,12 @@ gs.error("responseBody: " + responseBody )
         var body = response.getBody();
         // ...
 		gs.info("API CALL response: " + body);
+		gs.info("ServerSideAPICall_POST end");
     }
 } catch (ex) {
     // process exception
-gs.error("error on api call")
-		gs.error("API CALL error: " + ex.ToString());
+gs.error("error on api call1")
+		gs.error("API CALL error1: " + ex.ToString());
 	
 } 
 
@@ -94,21 +114,21 @@ gs.error("error on api call")
 })(current, previous);]]></script>
         <sys_class_name>sys_script</sys_class_name>
         <sys_created_by>admin</sys_created_by>
-        <sys_created_on>2024-01-16 14:57:12</sys_created_on>
+        <sys_created_on>2024-02-07 10:04:15</sys_created_on>
         <sys_domain>global</sys_domain>
         <sys_domain_path>/</sys_domain_path>
-        <sys_id>1cf8f74547bf3110e55829af016d4335</sys_id>
-        <sys_mod_count>35</sys_mod_count>
-        <sys_name>ServerSideAPICall_GET</sys_name>
+        <sys_id>9359805047d402101dadd24b116d4363</sys_id>
+        <sys_mod_count>26</sys_mod_count>
+        <sys_name>ServerSideAPICall_POST</sys_name>
         <sys_overrides/>
         <sys_package display_value="NeedIt" source="x_58872_needit">6ead8e780f603200cd674f8ce1050ed1</sys_package>
         <sys_policy/>
         <sys_scope display_value="NeedIt">6ead8e780f603200cd674f8ce1050ed1</sys_scope>
-        <sys_update_name>sys_script_1cf8f74547bf3110e55829af016d4335</sys_update_name>
+        <sys_update_name>sys_script_9359805047d402101dadd24b116d4363</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2024-02-07 10:10:04</sys_updated_on>
-        <template>description=0^EQ</template>
+        <sys_updated_on>2024-02-07 12:47:37</sys_updated_on>
+        <template/>
         <when>async_always</when>
     </sys_script>
-    <sys_translated_text action="delete_multiple" query="documentkey=1cf8f74547bf3110e55829af016d4335"/>
+    <sys_translated_text action="delete_multiple" query="documentkey=9359805047d402101dadd24b116d4363"/>
 </record_update>
